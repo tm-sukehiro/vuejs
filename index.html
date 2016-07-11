@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>vue.js sample</title>
+  <script src="node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+  <p>vue.js sample body</p>
+  <div id="app">
+    <p>{{message}}</p>
+    <input v-model="message">
+    <button v-on:click="reverseMessage">Reverse Message</button>
+    <ul>
+      <li v-for="todo in todos">
+        {{todo.text}}
+      </li>
+    </ul>
+    <input v-model="newTodo" v-on:keyup.enter="addTodo">
+    <ul>
+      <li v-for="todo in todos">
+        <span>{{todo.text}}</span>
+        <button v-on:click="removeTodo($index)">X</button>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+  new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello Vue.js!',
+      todos: [
+        { text: 'Learn JavaScript' },
+        { text: 'Learn Vue.js' },
+        { text: 'Build Something Awesome' }
+      ],
+      newTodo: ''
+    },
+    methods: {
+      reverseMessage: function () {
+        this.message = this.message.split('').reverse().join('')
+      },
+      addTodo: function () {
+        var text = this.newTodo.trim()
+        if (text) {
+          this.todos.push({text: text})
+          this.newTodo = ''
+        }
+      },
+      removeTodo: function (index) {
+        this.todos.splice(index, 1)
+      }
+    }
+  })
+  </script>
+</body>
+</html>
